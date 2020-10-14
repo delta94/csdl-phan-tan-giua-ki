@@ -1,0 +1,14 @@
+#phanManhDoc input {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#phanManhDoc .table td,
+#phanManhDoc .table th {
+    padding: 0;
+    vertical-align: middle;
+}
+
+#phanManhDoc .table input {
+    border: 0;
+}

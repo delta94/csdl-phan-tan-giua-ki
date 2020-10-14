@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiết kế phân mảnh ngang và phân mảnh dọc</title>
+
+    <!-- Các thư viện style -->
+    <link rel="stylesheet" href="libraries/bootstrap.min.css">
+
+    <!-- Style của người dùng -->
+    <link rel="stylesheet" href="stylesheet.css">
+
+    <link rel="stylesheet" href="phanManhDoc.nhapLieu.css">
+    <link rel="stylesheet" href="phanManhDoc.maTranAA.css">
+    <link rel="stylesheet" href="phanManhDoc.maTranCA.css">
+    <link rel="stylesheet" href="phanManhDoc.partition.css">
+</head>
+
+<body>
+    <!-- Nội dung chính -->
+    <div class="container">
+        <!-- Tiêu đề -->
+        <div class="display-4">Tính toán bài tập</div>
+        <div class="lead">Phân mảnh dọc</div>
+
+        <hr />
+
+        <!-- Phân mảnh dọc -->
+
+        <div id="phanManhDoc">
+            <div class="xuLyNhapLieu">
+                <h3>Nhập liệu</h3>
+
+                <ul>
+                    <li>
+                        <span>Tập Q là các truy vấn, số phần tử có trong tập Q là </span>
+                        <input class="soPhanTuQ" type="number" min="1" step="1" value="0" />
+                        <br />
+                        Tập Q: { <span class="hienThiTapQ"></span> }
+                    </li>
+
+                    <li>
+                        <span>Tập A là các thuộc tính của quan hệ, số phần tử có trong tập A là </span>
+                        <input class="soPhanTuA" type="number" min="1" step="1" value="0" />
+                        <br />
+                        Tập A: { <span class="hienThiTapA"></span> }
+                    </li>
+
+                    <li>
+                        <span>Tập S là các vị trí (sites) trong hệ cơ sở dữ liệu phân tán, số phần tử có trong tập S là
+                        </span>
+                        <input class="soPhanTuS" type="number" min="1" step="1" value="0" />
+                        <br />
+                        Tập S: { <span class="hienThiTapS"></span> }
+                    </li>
+
+                    <li>
+                        <span>Ma trận USE </span>
+                        <table class="maTranUSE table table-bordered table-striped table-hovered">
+                            <tr>
+                                <th> Không có dữ liệu </th>
+                            </tr>
+                        </table>
+
+                        <div>
+                            Thao tác: <input class="nhapNgauNhienMaTranUSE button-link" type="button"
+                                value="Nhập ngẫu nhiên" />
+                            <input class="caiLaiMaTranUSE button-link" type="button" value="Cài lại" />
+                            <input class="ghiMaTranUSE button-link" type="button" value="Ghi ma trận" />
+                            <input class="lamMoiMaTranUSE button-link" type="button" value="Làm mới" />
+                        </div>
+                        <br />
+                    </li>
+
+                    <li>
+                        <span>Ma trận ACC </span>
+                        <table class="maTranACC table table-bordered table-striped table-hovered">
+                            <tr>
+                                <th> Không có dữ liệu </th>
+                            </tr>
+                        </table>
+
+                        <div>
+                            Thao tác: <input class="nhapNgauNhienMaTranACC button-link" type="button"
+                                value="Nhập ngẫu nhiên" />
+                            <input class="caiLaiMaTranACC button-link" type="button" value="Cài lại" />
+                            <input class="ghiMaTranACC button-link" type="button" value="Ghi ma trận" />
+                            <input class="lamMoiMaTranACC button-link" type="button" value="Làm mới" />
+                        </div>
+                        <br />
+                    </li>
+
+                    <li>
+                        <span>Ma trận REF </span>
+                        <table class="maTranREF table table-bordered table-striped table-hovered">
+                            <tr>
+                                <th> Không có dữ liệu </th>
+                            </tr>
+                        </table>
+
+                        <div>
+                            Thao tác: <input class="nhapNgauNhienMaTranREF button-link" type="button"
+                                value="Nhập ngẫu nhiên" />
+                            <input class="caiLaiMaTranREF button-link" type="button" value="Cài lại" />
+                            <input class="ghiMaTranREF button-link" type="button" value="Ghi ma trận" />
+                            <input class="lamMoiMaTranREF button-link" type="button" value="Làm mới" />
+                        </div>
+                        <br />
+                    </li>
+
+                    <li>
+                        <div>Thao tác thực hiện cho phần nhập liệu:</div>
+                        Thao tác:
+                        <ul>
+                            <li>Cài lại: <input class="caiLaiNhapLieu button-link" type="button"
+                                    value="Cài lại tất cả" /></li>
+                            <li>Nhập ngẫu nhiên: <input class="nhapNgauNhienNhapLieu button-link" type="button"
+                                    value="Nhập ngẫu nhiên" /></li>
+                            <li>JSON: <ul>
+                                    <li><input class="nhapJsonNhapLieu button-link" type="button"
+                                            value="Nhập các ma trận bằng JSON"
+                                            onclick="toggleThongTin($('#phanManhDoc .nhapJsonNhapLieuDiv'))" />
+                                        <div class="nhapJsonNhapLieuDiv" style="display: none;">
+                                            <textarea class="textareaJson w-100 p-1" wrap="hard"
+                                                style="min-height: 50vh; font-weight: bold; font-family: monospace; resize: both;">{}</textarea>
+                                            <input class="nhapJsonNhapLieuThucThi button-link" type="button"
+                                                value="Nhập" />
+                                            <input class="nhapJsonNhapLieuCaiLai button-link" type="button"
+                                                value="Cài lại" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input class="xuatJsonNhapLieu button-link" type="button"
+                                            value="Xuất các ma trận bằng JSON"
+                                            onclick="toggleThongTin($('#phanManhDoc .xuatJsonNhapLieuDiv'))" />
+                                        <div class="xuatJsonNhapLieuDiv" style="display: none;">
+                                            <textarea class="textareaJson w-100 p-1" wrap="hard"
+                                                style="min-height: 50vh; font-weight: bold; font-family: monospace; resize: both;">{}</textarea>
+                                            <input class="xuatJsonNhapLieuThucThi button-link" type="button"
+                                                value="Xuất" />
+                                            <input class="xuatJsonNhapLieuCaiLai button-link" type="button"
+                                                value="Cài lại" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>LocalStorage:
+                                <ul>
+                                    <li><input class="nhapLocalStorageNhapLieu button-link" type="button"
+                                            value="Nhập các ma trận bằng LocalStorage"
+                                            onclick="toggleThongTin($('#phanManhDoc .nhapLocalStorageNhapLieuDiv'))" />
+                                        <div class="nhapLocalStorageNhapLieuDiv" style="display: none;">
+                                            <div class="luaChonTapDuLieu"></div>
+                                            <input class="nhapLocalStorageNhapLieuThucThi button-link" type="button"
+                                                value="Nhập" />
+                                            <input class="nhapLocalStorageNhapLieuXemDuLieu button-link" type="button"
+                                                value="Xem dữ liệu" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input class="xuatLocalStorageNhapLieu button-link" type="button"
+                                            value="Xuất các ma trận bằng LocalStorage"
+                                            onclick="toggleThongTin($('#phanManhDoc .xuatLocalStorageNhapLieuDiv'))" />
+                                        <div class="xuatLocalStorageNhapLieuDiv" style="display: none;">
+                                            <input class="tenTapDuLieu" type="text"
+                                                placeholder="Nhập tên tập dữ liệu" />
+                                            <input class="xuatLocalStorageNhapLieuThucThi button-link" type="button"
+                                                value="Xuất" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <br />
+                    </li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <div class="xuLyMaTranAA">
+                <h3>Ma trận AA</h3>
+                <br />
+
+                <div>Tính toán: <input class="button-link" type="button" value="Ẩn / Hiện thông tin"
+                        onclick="toggleThongTin($('#phanManhDoc .tinhToanMaTranAA'))" />
+                </div>
+                <ul class="tinhToanMaTranAA" style="display: none;">
+                </ul>
+
+                <div>Ma trận AA</div>
+                <table class="maTranAA table table-bordered table-striped table-hovered">
+                    <tr>
+                        <th> Không có dữ liệu </th>
+                    </tr>
+                </table>
+
+                <div>Thao tác thực hiện tính toán ma trận AA:</div>
+                Thao tác: <input class="tinhLaiMaTranAA button-link" type="button" value="Tính lại ma trận AA" />
+                <input class="ghiMaTranAA button-link" type="button" value="Ghi ma trận" />
+                <input class="lamMoiMaTranAA button-link" type="button" value="Làm mới" />
+                <br />
+            </div>
+
+            <hr />
+
+            <div class="xuLyMaTranCA">
+                <h3>Ma trận CA</h3>
+                <br />
+
+                <div>Tính toán: <input class="button-link" type="button" value="Ẩn / Hiện thông tin"
+                        onclick="toggleThongTin($('#phanManhDoc .tinhToanMaTranCA'))" />
+                </div>
+                <ul class="tinhToanMaTranCA" style="display: none;">
+                </ul>
+
+                <div>Ma trận CA</div>
+                <table class="maTranCA table table-bordered table-striped table-hovered">
+                    <tr>
+                        <th> Không có dữ liệu </th>
+                    </tr>
+                </table>
+
+                <div>Thao tác thực hiện tính toán ma trận CA:</div>
+                Thao tác: <input class="tinhLaiMaTranCA button-link" type="button" value="Tính lại ma trận CA" />
+                <input class="ghiMaTranCA button-link" type="button" value="Ghi ma trận" />
+                <input class="lamMoiMaTranCA button-link" type="button" value="Làm mới" />
+                <br />
+            </div>
+
+            <hr />
+
+            <div class="xuLyPartition"></div>
+        </div>
+
+        <!-- Các thư viện javascript -->
+        <script src="libraries/jquery.3.4.1.min.js"></script>
+        <script src="libraries/bootstrap.bundle.min.js"></script>
+        <script src="libraries/sweetalert.2.1.2.min.js"></script>
+
+        <!-- Javascript của người dùng -->
+        <script src="javascript.js"></script>
+
+        <script src="phanManhDoc.js"></script>
+        <script src="phanManhDoc.nhapLieu.js"></script>
+        <script src="phanManhDoc.maTranAA.js"></script>
+        <script src="phanManhDoc.maTranCA.js"></script>
+        <script src="phanManhDoc.partition.js"></script>
+        <script src="phanManhDoc.dieuKhien.js"></script>
+    </div>
+</body>
+
+</html>
