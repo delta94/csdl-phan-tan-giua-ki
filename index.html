@@ -233,7 +233,31 @@
 
             <hr />
 
-            <div class="xuLyPartition"></div>
+            <div class="xuLyPartition">
+                <h3>Xử lý Partition</h3>
+                <br />
+
+                <div>Tính toán: <input class="button-link" type="button" value="Ẩn / Hiện thông tin"
+                        onclick="toggleThongTin($('#phanManhDoc .tinhToanXuLyPartition'))" />
+                </div>
+                <ul class="tinhToanXuLyPartition" style="display: none;">
+                </ul>
+
+                <div>Xử lý Partition</div>
+                <table class="table table-bordered table-striped table-hovered">
+                    <tr>
+                        <th> Không có dữ liệu </th>
+                    </tr>
+                </table>
+
+                <div>Thao tác thực hiện tính toán xử lý Partition:</div>
+                Thao tác: <input class="tinhLaiXuLyPartition button-link" type="button"
+                    value="Tính lại xử lý Partition" />
+                <input class="lamMoiXuLyPartition button-link" type="button" value="Làm mới" />
+                <br />
+            </div>
+
+            <hr />
         </div>
     </div>
 

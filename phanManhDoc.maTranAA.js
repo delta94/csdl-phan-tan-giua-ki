@@ -11,6 +11,7 @@ function tinhToanMaTranAA() {
 
             let htmlTinhToan = `<li><div>Xét hai cột A${phanTuA1} A${phanTuA2}: `;
             let htmlTinhToanChiTiet = ``;
+            let htmlKetQuaNhan = [];
 
             maTranUSE.forEach((dongUSE, indexDongUSE) => {
                 if (dongUSE[phanTuA1] == 1 && dongUSE[phanTuA2] == 1) {
@@ -22,6 +23,7 @@ function tinhToanMaTranAA() {
                     duLieuAA += duLieuNhan;
 
                     htmlTinhToanChiTiet += `<li>Tại q${indexDongUSE}: Ta có ${maTranACC[indexDongUSE].map((duLieuACC, indexCotACC) => `${duLieuACC}x${maTranREF[indexDongUSE][indexCotACC]}`).join(' + ')} = ${duLieuNhan}</li>`;
+                    htmlKetQuaNhan.push(`${duLieuNhan}`);
                 }
             });
             maTranAA[phanTuA1][phanTuA2] = duLieuAA;
@@ -29,7 +31,7 @@ function tinhToanMaTranAA() {
 
             if (htmlTinhToanChiTiet == ``) htmlTinhToan += `Không tìm thấy dòng nào phù hợp`;
             else htmlTinhToan += `Giá trị tính được là ${duLieuAA}`;
-            htmlTinhToan += `</div><ul>${htmlTinhToanChiTiet}</ul></li>`;
+            htmlTinhToan += `</div><ul>${htmlTinhToanChiTiet} <li> Tính kết quả: ${htmlKetQuaNhan.length > 1 ? htmlKetQuaNhan.join(' + ') + ' = ' : ''} ${duLieuAA}</li></ul></li>`;
             $('#phanManhDoc .tinhToanMaTranAA').append(htmlTinhToan);
         }
     }

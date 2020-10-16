@@ -93,13 +93,50 @@ $(document).ready(function () {
     });
 
     $('#phanManhDoc .nhapNgauNhienMaTranUSE').click(function () {
-        nhapNgauNhienMaTran(maTranUSE, 0, 1, khiThayDoi_maTranUSE);
+        nhapNgauNhienMaTran(
+            maTranUSE,
+            [
+                { giaTri: 0, phanTram: 7 },
+                { giaTri: 1, phanTram: 9 },
+            ],
+            khiThayDoi_maTranUSE
+        );
     });
     $('#phanManhDoc .nhapNgauNhienMaTranACC').click(function () {
-        nhapNgauNhienMaTran(maTranACC, 0, 10, khiThayDoi_maTranACC);
+        nhapNgauNhienMaTran(
+            maTranACC,
+            [
+                { giaTri: 0, phanTram: 4 },
+
+                { giaTri: 1, phanTram: 1 },
+                { giaTri: 2, phanTram: 1 },
+                { giaTri: 3, phanTram: 1 },
+
+                { giaTri: 4, phanTram: 1 },
+                { giaTri: 5, phanTram: 1 },
+                { giaTri: 6, phanTram: 1 },
+
+                { giaTri: 7, phanTram: 1 },
+                { giaTri: 8, phanTram: 1 },
+                { giaTri: 9, phanTram: 1 },
+
+                { giaTri: 10, phanTram: 1 },
+                { giaTri: 11, phanTram: 1 },
+                { giaTri: 12, phanTram: 1 },
+            ],
+            khiThayDoi_maTranACC
+        );
     });
     $('#phanManhDoc .nhapNgauNhienMaTranREF').click(function () {
-        nhapNgauNhienMaTran(maTranREF, 0, 2, khiThayDoi_maTranREF);
+        nhapNgauNhienMaTran(
+            maTranREF,
+            [
+                { giaTri: 0, phanTram: 10 },
+                { giaTri: 1, phanTram: 80 },
+                { giaTri: 2, phanTram: 10 },
+            ],
+            khiThayDoi_maTranREF
+        );
     });
 
     $('#phanManhDoc .caiLaiMaTranUSE').click(function () {
@@ -113,9 +150,46 @@ $(document).ready(function () {
     });
 
     $('#phanManhDoc .nhapNgauNhienNhapLieu').click(function () {
-        nhapNgauNhienMaTran(maTranUSE, 0, 1, khiThayDoi_maTranUSE);
-        nhapNgauNhienMaTran(maTranACC, 0, 10, khiThayDoi_maTranACC);
-        nhapNgauNhienMaTran(maTranREF, 0, 2, khiThayDoi_maTranREF);
+        nhapNgauNhienMaTran(
+            maTranUSE,
+            [
+                { giaTri: 0, phanTram: 7 },
+                { giaTri: 1, phanTram: 9 },
+            ],
+            khiThayDoi_maTranUSE
+        );
+        nhapNgauNhienMaTran(
+            maTranACC,
+            [
+                { giaTri: 0, phanTram: 4 },
+
+                { giaTri: 1, phanTram: 1 },
+                { giaTri: 2, phanTram: 1 },
+                { giaTri: 3, phanTram: 1 },
+
+                { giaTri: 4, phanTram: 1 },
+                { giaTri: 5, phanTram: 1 },
+                { giaTri: 6, phanTram: 1 },
+
+                { giaTri: 7, phanTram: 1 },
+                { giaTri: 8, phanTram: 1 },
+                { giaTri: 9, phanTram: 1 },
+
+                { giaTri: 10, phanTram: 1 },
+                { giaTri: 11, phanTram: 1 },
+                { giaTri: 12, phanTram: 1 },
+            ],
+            khiThayDoi_maTranACC
+        );
+        nhapNgauNhienMaTran(
+            maTranREF,
+            [
+                { giaTri: 0, phanTram: 10 },
+                { giaTri: 1, phanTram: 80 },
+                { giaTri: 2, phanTram: 10 },
+            ],
+            khiThayDoi_maTranREF
+        );
     });
     $('#phanManhDoc .caiLaiNhapLieu').click(function () {
         caiLaiMaTran(maTranUSE, 0, khiThayDoi_maTranUSE);

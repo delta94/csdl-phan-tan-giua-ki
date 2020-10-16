@@ -137,8 +137,23 @@ function nhapNgauNhienMaTran(maTran, soNhoNhat, soLonNhat, suKien) {
     goiSuKien(suKien);
 }
 
+function nhapNgauNhienMaTran(maTran, tuyChonNgauNhien, suKien) {
+    let mangIndex = [];
+    let phanTramNhoNhat = tuyChonNgauNhien[0].phanTram;
+    tuyChonNgauNhien.forEach((tuyChon) => (phanTramNhoNhat = tuyChon.phanTram < phanTramNhoNhat ? tuyChon.phanTram : phanTramNhoNhat));
+    tuyChonNgauNhien.forEach((tuyChon) => (mangIndex = mangIndex.concat(new Array(Math.floor(tuyChon.phanTram / phanTramNhoNhat)).fill(tuyChon.giaTri))));
+
+    maTran.forEach((dong, dongIndex) => {
+        maTran[dongIndex] = dong.map((_) => mangIndex[Math.floor(Math.random() * mangIndex.length)]);
+    });
+    goiSuKien(suKien);
+}
+
 function caiLaiMaTran(maTran, giaTriChung, suKien) {
-    this;
+    if (maTran.length > 0) {
+        maTran.forEach((dong, indexDong) => dong.forEach((_, indexCot) => (maTran[indexDong][indexCot] = giaTriChung)));
+        goiSuKien(suKien);
+    }
 }
 
 function layThongTinTrenMaTran(selectorMaTran, soDong, soCot) {

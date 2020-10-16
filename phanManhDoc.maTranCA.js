@@ -29,15 +29,15 @@ function tinhBound(chiSo1, chiSo2) {
         cot2 = new Array(chieuCaoCotAA).fill(0);
     }
 
-    tinhToanMaTranCAHtml += '<li></li>';
-    cot1.forEach((cot1Item, indexCot1) => {
-        bound += cot1Item * cot2[indexCot1];
-    });
+    tinhToanMaTranCAHtml += `<li> = ${cot1.map((_, indexCot1) => `A${chiSo1}A${indexCot1} x A${chiSo2}A${indexCot1}`).join(' + ')}</li>`;
+    tinhToanMaTranCAHtml += `<li> = ${cot1.map((cot1Item, indexCot1) => `${cot1Item} x ${cot2[indexCot1]}`).join(' + ')}</li>`;
 
     let bound = 0;
     cot1.forEach((cot1Item, indexCot1) => {
         bound += cot1Item * cot2[indexCot1];
     });
+
+    tinhToanMaTranCAHtml += `<li> = ${bound}</li>`;
 
     return bound;
 }
@@ -46,18 +46,24 @@ function tinhCont(chiSo1, chiSo2, chiSo3) {
     tinhToanMaTranCAHtml += '<li>Tính Bound từng cặp:';
     tinhToanMaTranCAHtml += '<ul>';
 
-    tinhToanMaTranCAHtml += `<li>Tính Bound của cặp ${[chiSo1, chiSo2].map((item) => 'A${item}').join(',')}: <ul>`;
+    tinhToanMaTranCAHtml += `<li>Tính Bound của cặp ${[chiSo1, chiSo2].map((item) => `A${item}`).join(', ')}: Bound(${[chiSo1, chiSo2].map((item) => `A${item}`).join(', ')})<ul style="list-style-type: none;">`;
     let bound12 = tinhBound(chiSo1, chiSo2);
     tinhToanMaTranCAHtml += '</ul></li>';
+
+    tinhToanMaTranCAHtml += `<li>Tính Bound của cặp ${[chiSo2, chiSo3].map((item) => `A${item}`).join(', ')}: Bound(${[chiSo2, chiSo3].map((item) => `A${item}`).join(', ')})<ul style="list-style-type: none;">`;
     let bound23 = tinhBound(chiSo2, chiSo3);
+    tinhToanMaTranCAHtml += '</ul></li>';
+
+    tinhToanMaTranCAHtml += `<li>Tính Bound của cặp ${[chiSo1, chiSo3].map((item) => `A${item}`).join(', ')}: Bound(${[chiSo1, chiSo3].map((item) => `A${item}`).join(', ')})<ul style="list-style-type: none;">`;
     let bound13 = tinhBound(chiSo1, chiSo3);
+    tinhToanMaTranCAHtml += '</ul></li>';
 
     tinhToanMaTranCAHtml += '</ul>';
     tinhToanMaTranCAHtml += '</li>';
 
     let cont = 2 * bound12 + 2 * bound23 - 2 * bound13;
 
-    tinhToanMaTranCAHtml += '<li>Tính count: Cont(' + [chiSo1, chiSo2, chiSo3].map((item) => `A${item}`).join(',') + ') <ul style="list-style-type: none;"><li>= 2 x Bound(' + [chiSo1, chiSo2].map((item) => `A${item}`).join(',') + ') + 2 x Bound(' + [chiSo2, chiSo3].map((item) => `A${item}`).join(',') + ') - 2 x Bound(' + [chiSo1, chiSo3].map((item) => `A${item}`).join(',') + ')</li><li>= 2 x ' + bound12 + ' + 2 x ' + bound23 + ' - 2 x ' + bound13 + '</li><li>= ' + cont + '</li></ul></li>';
+    tinhToanMaTranCAHtml += '<li>Tính count: Cont(' + [chiSo1, chiSo2, chiSo3].map((item) => `A${item}`).join(', ') + ') <ul style="list-style-type: none;"><li>= 2 x Bound(' + [chiSo1, chiSo2].map((item) => `A${item}`).join(', ') + ') + 2 x Bound(' + [chiSo2, chiSo3].map((item) => `A${item}`).join(', ') + ') - 2 x Bound(' + [chiSo1, chiSo3].map((item) => `A${item}`).join(', ') + ')</li><li>= 2 x ' + bound12 + ' + 2 x ' + bound23 + ' - 2 x ' + bound13 + '</li><li>= ' + cont + '</li></ul></li>';
     return cont;
 }
 
@@ -69,7 +75,7 @@ function tinhMaxCont(mangChiSoCoDinh, chiSoCanTinh) {
     tinhToanMaTranCAHtml += '<ul>Tính Cont của từng bộ ba: ';
 
     for (let chiSo = 1; chiSo < mangChiSoTam.length; chiSo += 1) {
-        tinhToanMaTranCAHtml += `<li>Tính Cont của bộ ${[mangChiSoTam[chiSo - 1], chiSoCanTinh, mangChiSoTam[chiSo]].map((item) => `${item}`)}: `;
+        tinhToanMaTranCAHtml += `<li>Tính Cont của bộ ${[mangChiSoTam[chiSo - 1], chiSoCanTinh, mangChiSoTam[chiSo]].map((item) => `A${item}`).join(', ')}: `;
         tinhToanMaTranCAHtml += `<ul>`;
         let contTinhToan = tinhCont(mangChiSoTam[chiSo - 1], chiSoCanTinh, mangChiSoTam[chiSo]);
         tinhToanMaTranCAHtml += '</ul>';
@@ -93,13 +99,13 @@ function tinhChiSoMaTranCA() {
 
     tinhToanMaTranCAHtml += '<ul>';
     let mangChiSo = [0, 1];
-    tinhToanMaTranCAHtml += `<li>Khởi tạo, cố định ${mangChiSo.map((chiSo) => `A${chiSo}`).join(',')} </li>`;
+    tinhToanMaTranCAHtml += `<li>Khởi tạo, cố định ${mangChiSo.map((chiSo) => `A${chiSo}`).join(', ')} </li>`;
 
     for (let chiso = 2; chiso < maTranAA[0].length; chiso += 1) {
         tinhToanMaTranCAHtml += `<li>Duyệt A${chiso}:`;
         let indexChiSoContLonNhat = tinhMaxCont(mangChiSo, chiso);
         mangChiSo = mangChiSo.slice(0, indexChiSoContLonNhat).concat([chiso]).concat(mangChiSo.slice(indexChiSoContLonNhat));
-        tinhToanMaTranCAHtml += `<div> >> Thứ tự mới ${mangChiSo.map((chiSo) => `A${chiSo}`)}</div>`;
+        tinhToanMaTranCAHtml += `<div> >> Thứ tự mới ${mangChiSo.map((chiSo) => `A${chiSo}`).join(', ')}</div>`;
         tinhToanMaTranCAHtml += '</li>';
     }
 
