@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiết kế phân mảnh ngang và phân mảnh dọc</title>
+
+    <!-- Các thư viện style -->
+    <link rel="stylesheet" href="libraries/bootstrap.min.css">
+
+    <!-- Style của người dùng -->
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nội dung chính -->
+    <div class="container">
+        <div style="height: 10rem;"></div>
+        <table class="maTran table table-striped table-hovered table-bordered"></table>
+    </div>
+
+    <!-- Các thư viện javascript -->
+    <script src="libraries/jquery.3.4.1.min.js"></script>
+    <script src="libraries/bootstrap.bundle.min.js"></script>
+    <script src="libraries/sweetalert.2.1.2.min.js"></script>
+
+    <!-- Javascript của người dùng -->
+    <script src="maTran.js"></script>
+    <script>
+        let maTran = new MaTran($(".maTran"));
+
+        maTran.duLieu = Array(10).fill('').map((_, indexDong) => Array(10).fill('').map((_, indexCot) => `${`${indexDong}`.padStart(3, '0')}_${`${indexCot}`.padStart(3, '0')}`));
+
+        $(document).ready(function () {
+            maTran.dongBoHtml();
+        });
+    </script>
+</body>
+
+</html>

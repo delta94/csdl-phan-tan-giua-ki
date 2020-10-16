@@ -4,7 +4,7 @@ function tinhBound(chiSo1, chiSo2) {
     let chieuCaoCotAA = maTranAA.length;
     let chieuDaiDongAA = maTranAA[0].length;
 
-    if (chiSo1 < 0 || chiSo2 < 0 || chiSo1 >= chieuDaiDongAA || chiSo2 >= chieuDaiDongAA) {
+    if (chiSo1 < 0 || chiSo2 < 0) {
         throw new Exception('Chỉ số nhập vào bị sai ');
     }
 
@@ -29,6 +29,11 @@ function tinhBound(chiSo1, chiSo2) {
         cot2 = new Array(chieuCaoCotAA).fill(0);
     }
 
+    tinhToanMaTranCAHtml += '<li></li>';
+    cot1.forEach((cot1Item, indexCot1) => {
+        bound += cot1Item * cot2[indexCot1];
+    });
+
     let bound = 0;
     cot1.forEach((cot1Item, indexCot1) => {
         bound += cot1Item * cot2[indexCot1];
@@ -38,7 +43,22 @@ function tinhBound(chiSo1, chiSo2) {
 }
 
 function tinhCont(chiSo1, chiSo2, chiSo3) {
-    return 2 * tinhBound(chiSo1, chiSo2) + 2 * tinhBound(chiSo2, chiSo3) - 2 * tinhBound(chiSo1, chiSo3);
+    tinhToanMaTranCAHtml += '<li>Tính Bound từng cặp:';
+    tinhToanMaTranCAHtml += '<ul>';
+
+    tinhToanMaTranCAHtml += `<li>Tính Bound của cặp ${[chiSo1, chiSo2].map((item) => 'A${item}').join(',')}: <ul>`;
+    let bound12 = tinhBound(chiSo1, chiSo2);
+    tinhToanMaTranCAHtml += '</ul></li>';
+    let bound23 = tinhBound(chiSo2, chiSo3);
+    let bound13 = tinhBound(chiSo1, chiSo3);
+
+    tinhToanMaTranCAHtml += '</ul>';
+    tinhToanMaTranCAHtml += '</li>';
+
+    let cont = 2 * bound12 + 2 * bound23 - 2 * bound13;
+
+    tinhToanMaTranCAHtml += '<li>Tính count: Cont(' + [chiSo1, chiSo2, chiSo3].map((item) => `A${item}`).join(',') + ') <ul style="list-style-type: none;"><li>= 2 x Bound(' + [chiSo1, chiSo2].map((item) => `A${item}`).join(',') + ') + 2 x Bound(' + [chiSo2, chiSo3].map((item) => `A${item}`).join(',') + ') - 2 x Bound(' + [chiSo1, chiSo3].map((item) => `A${item}`).join(',') + ')</li><li>= 2 x ' + bound12 + ' + 2 x ' + bound23 + ' - 2 x ' + bound13 + '</li><li>= ' + cont + '</li></ul></li>';
+    return cont;
 }
 
 function tinhMaxCont(mangChiSoCoDinh, chiSoCanTinh) {
@@ -46,8 +66,14 @@ function tinhMaxCont(mangChiSoCoDinh, chiSoCanTinh) {
     let contLonNhat = 0;
     let chiSoLonNhat = 0;
 
-    for (let chiSo = 2; chiSo < mangChiSoTam; chiSo += 1) {
-        let contTinhToan = tinhCont(chiSo - 1, chiSoCanTinh, chiSo);
+    tinhToanMaTranCAHtml += '<ul>Tính Cont của từng bộ ba: ';
+
+    for (let chiSo = 1; chiSo < mangChiSoTam.length; chiSo += 1) {
+        tinhToanMaTranCAHtml += `<li>Tính Cont của bộ ${[mangChiSoTam[chiSo - 1], chiSoCanTinh, mangChiSoTam[chiSo]].map((item) => `${item}`)}: `;
+        tinhToanMaTranCAHtml += `<ul>`;
+        let contTinhToan = tinhCont(mangChiSoTam[chiSo - 1], chiSoCanTinh, mangChiSoTam[chiSo]);
+        tinhToanMaTranCAHtml += '</ul>';
+        tinhToanMaTranCAHtml += '</li>';
 
         if (contTinhToan > contLonNhat) {
             contLonNhat = contTinhToan;
@@ -57,19 +83,27 @@ function tinhMaxCont(mangChiSoCoDinh, chiSoCanTinh) {
 
     chiSoLonNhat = chiSoLonNhat - 1;
 
+    tinhToanMaTranCAHtml += '</ul>';
+
     return chiSoLonNhat;
 }
 
 function tinhChiSoMaTranCA() {
     if (maTranAA.length < 1) return [];
 
+    tinhToanMaTranCAHtml += '<ul>';
     let mangChiSo = [0, 1];
+    tinhToanMaTranCAHtml += `<li>Khởi tạo, cố định ${mangChiSo.map((chiSo) => `A${chiSo}`).join(',')} </li>`;
 
     for (let chiso = 2; chiso < maTranAA[0].length; chiso += 1) {
-        let chiSoLonNhat = tinhMaxCont(mangChiSo, chiso);
-
-        mangChiSo = mangChiSo.slice(0, chiSoLonNhat).concat([chiso]).concat(mangChiSo.slice(chiSoLonNhat));
+        tinhToanMaTranCAHtml += `<li>Duyệt A${chiso}:`;
+        let indexChiSoContLonNhat = tinhMaxCont(mangChiSo, chiso);
+        mangChiSo = mangChiSo.slice(0, indexChiSoContLonNhat).concat([chiso]).concat(mangChiSo.slice(indexChiSoContLonNhat));
+        tinhToanMaTranCAHtml += `<div> >> Thứ tự mới ${mangChiSo.map((chiSo) => `A${chiSo}`)}</div>`;
+        tinhToanMaTranCAHtml += '</li>';
     }
+
+    tinhToanMaTranCAHtml += '</ul>';
 
     return mangChiSo;
 }
@@ -77,16 +111,36 @@ function tinhChiSoMaTranCA() {
 function tinhToanMaTranCA() {
     if (maTranAA.length < 1) return;
 
+    mangChiSoMaTranCA = [];
+    tinhToanMaTranCAHtml = '';
+
     mangChiSoMaTranCA = tinhChiSoMaTranCA();
 
-    maTranCA = new Array(maTranAA.length).fill('').map((_, indexDongCA) => new Array(mangChiSoMaTranCA.length).fill('').map((_, indexCotCA) => maTranAA[indexDongCA][mangChiSoMaTranCA[indexCotCA]]));
+    maTranCA = mangChiSoMaTranCA.map((chiSoDong) =>
+        mangChiSoMaTranCA.map((chiSoCot) => {
+            if (maTranAA[chiSoDong] && (maTranAA[chiSoDong][chiSoCot] || maTranAA[chiSoDong][chiSoCot] === 0)) return maTranAA[chiSoDong][chiSoCot];
+            else return undefined;
+        })
+    );
 
     goiSuKien(khiThayDoi_maTranCA);
 }
 
 $(document).ready(function () {
     themSuKien(khiThayDoi_maTranCA, 'thayDoi.htmlMaTranCA', function () {
-        thayDoiHtmlMaTran($('#phanManhDoc .maTranCA'), maTranCA, 'A', 'A');
+        thayDoiHtmlMaTran(
+            $('#phanManhDoc .maTranCA'),
+            maTranCA,
+            mangChiSoMaTranCA.map((chiSo) => `A${chiSo}`),
+            mangChiSoMaTranCA.map((chiSo) => `A${chiSo}`)
+        );
+
+        $('#phanManhDoc .xuLyMaTranCA .tinhToanMaTranCA').html(tinhToanMaTranCAHtml);
+    });
+
+    themSuKien(khiThayDoi_maTranAA, 'thayDoi.htmlMaTranAA', function () {
+        tinhToanMaTranCA();
+        goiSuKien(khiThayDoi_maTranCA);
     });
 
     $('#phanManhDoc .tinhLaiMaTranCA').click(function () {
@@ -100,6 +154,11 @@ $(document).ready(function () {
         goiSuKien(khiThayDoi_maTranCA);
     });
     $('#phanManhDoc .lamMoiMaTranCA').click(function () {
-        thayDoiHtmlMaTran($('#phanManhDoc .maTranCA'), maTranCA, 'A', 'A');
+        thayDoiHtmlMaTran(
+            $('#phanManhDoc .maTranCA'),
+            maTranCA,
+            mangChiSoMaTranCA.map((chiSo) => `A${chiSo}`),
+            mangChiSoMaTranCA.map((chiSo) => `A${chiSo}`)
+        );
     });
 });
