@@ -13,7 +13,8 @@ let maTranCA = [];
 let mangChiSoMaTranCA = [];
 let tinhToanMaTranCAHtml = ``;
 
-let maTranPhanManhDoc = [];
+let indexRanhGioiMaTranPhanManhDoc = undefined;
+let tinhToanMaTranPhanManhDocHtml = ``;
 
 //Các mảng sự kiện
 let khiThayDoi_soPhanTuQ = [];
