@@ -13,7 +13,8 @@ let maTranCA = [];
 let mangChiSoMaTranCA = [];
 let tinhToanMaTranCAHtml = ``;
 
-let indexRanhGioiMaTranPhanManhDoc = undefined;
+let indexRanhGioiMaTranPhanManhDoc = 0;
+maTranPhanManhDocStyle = [];
 let tinhToanMaTranPhanManhDocHtml = ``;
 
 //Các mảng sự kiện
@@ -80,7 +81,7 @@ function thayDoiCacCotMaTran(maTran, soCotMoi, suKien, themMoi = 0) {
     }
 }
 
-function taoHtmlMaTran(maTran, tenDong, tenCot) {
+function taoHtmlMaTran(maTran, tenDong, tenCot, maTranStyle) {
     let mangTenDong = [];
     let mangTenCot = [];
 
@@ -105,13 +106,14 @@ function taoHtmlMaTran(maTran, tenDong, tenCot) {
         }
 
         htmlMaTranUSE += `<thead><tr><th><input class="w-100 h-100 p-0 bg-transparent" readonly/></th>${mangTenCot.map((tenMotCot) => `<th>${tenMotCot}</th>`).join('')}</tr></thead>`;
-        htmlMaTranUSE += `<tbody>${maTran.map((dong, indexDong) => `<tr><th>${mangTenDong[indexDong]}</th>${dong.map((duLieu, indexCot) => `<td><input class="w-100 h-100 p-0 bg-transparent" type="number" step="1" indexDong="${indexDong}" indexCot="${indexCot}" value="${duLieu}"></td>`).join('')}</tr>`).join('')}</tbody>`;
+
+        htmlMaTranUSE += `<tbody>${maTran.map((dong, indexDong) => `<tr><th>${mangTenDong[indexDong]}</th>${dong.map((duLieu, indexCot) => `<td><input class="w-100 h-100 p-0 bg-transparent" type="number" step="1" indexDong="${indexDong}" indexCot="${indexCot}" value="${duLieu}" ${maTranStyle && maTranStyle[indexDong] && maTranStyle[indexDong][indexCot] ? `style="${maTranStyle[indexDong][indexCot]}"` : ``}></td>`).join('')}</tr>`).join('')}</tbody>`;
     }
     return htmlMaTranUSE;
 }
 
-function thayDoiHtmlMaTran(selectorMaTran, maTran, tenDong, tenCot) {
-    let htmlMaTranUSE = taoHtmlMaTran(maTran, tenDong, tenCot);
+function thayDoiHtmlMaTran(selectorMaTran, maTran, tenDong, tenCot, maTranStyle) {
+    let htmlMaTranUSE = taoHtmlMaTran(maTran, tenDong, tenCot, maTranStyle);
     $(selectorMaTran).html(htmlMaTranUSE);
 }
 
