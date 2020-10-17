@@ -94,7 +94,7 @@ function tinhC_Q(tap_Q) {
         }
     });
 
-    tinhToanMaTranPhanManhDocHtml += `<ul><li> = ${htmlTinhToanChiTiet.join(' + ')}</li><li> = ${htmlTinhToanThaySo.join(' + ')}</li></ul>`;
+    tinhToanMaTranPhanManhDocHtml += `<ul style="list-style: none;"> ${htmlTinhToanChiTiet.length > 1 ? `<li> = ${htmlTinhToanChiTiet.join(' + ')}</li>` : ``} ${htmlTinhToanThaySo.length > 1 ? `<li> = ${htmlTinhToanThaySo.join(' + ')}</li>` : ``}<li> = ${duLieuC_Q}</li></ul>`;
 
     return duLieuC_Q;
 }
@@ -180,15 +180,15 @@ function tinhToanMaTranPhanManhDoc() {
         let tapOQ = tinhTapOQ(tapQ, tapTQ, tapBQ);
         tinhToanMaTranPhanManhDocHtml += `<li>Tập OQ (Là kết quả của phép toán trên tập Q - TQ - BQ): ${taoHienThi_Q(tapOQ)}</li>`;
 
-        tinhToanMaTranPhanManhDocHtml += `<li>`;
+        tinhToanMaTranPhanManhDocHtml += `<li> Tính CTQ dưa trên ma trận ACC và tập TQ: `;
         let CTQ = tinhC_Q(tapTQ);
         tinhToanMaTranPhanManhDocHtml += `</li>`;
 
-        tinhToanMaTranPhanManhDocHtml += `<li>`;
+        tinhToanMaTranPhanManhDocHtml += `<li> Tính CBQ dưa trên ma trận ACC và tập BQ: `;
         let CBQ = tinhC_Q(tapBQ);
         tinhToanMaTranPhanManhDocHtml += `</li>`;
 
-        tinhToanMaTranPhanManhDocHtml += `<li>`;
+        tinhToanMaTranPhanManhDocHtml += `<li> Tính COQ dưa trên ma trận ACC và tập OQ: `;
         let COQ = tinhC_Q(tapOQ);
         tinhToanMaTranPhanManhDocHtml += `</li>`;
 
