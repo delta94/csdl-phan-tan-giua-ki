@@ -221,8 +221,6 @@ function tinhToanMaTranPhanManhDoc() {
         })
     );
 
-    console.table(maTranPhanManhDocStyle);
-
     tinhToanMaTranPhanManhDocHtml += `</ul>`;
     tinhToanMaTranPhanManhDocHtml += `</li>`;
     tinhToanMaTranPhanManhDocHtml += `</ul>`;
